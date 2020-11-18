@@ -8,7 +8,7 @@ This script is intended to start GetId Web SDK on a page.
 
 ## How to use
 
-1. I should install script inti your project:
+1. I should install script init your project:
     
     ```bash
     npm i getid-launcher
@@ -27,7 +27,7 @@ This script is intended to start GetId Web SDK on a page.
     ```
 
 1. Compile SDK configuration object:
-    Ypu can get more information on https://github.com/vvorld/getid-web-sdk
+    You can get more information on https://github.com/vvorld/getid-web-sdk
 
     Example: 
     ``` js 
@@ -73,7 +73,7 @@ This script is intended to start GetId Web SDK on a page.
         onSuccess: (e) => console.log('Success:', e),
     };
     ```
-1. Create element in DOM where SDK shoul be included:
+1. Create element in DOM where SDK should be included:
     ```html
         <div id='getid-componen'>
 
