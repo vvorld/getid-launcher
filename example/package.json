@@ -1,0 +1,19 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "main": "./main.js",
+  "author": "GetID",
+  "description": "GetID Web SDK Launcher",
+  "license": "MIT",
+  "homepage": "https://github.com/vvorld/getid-launcher#readme",
+  "scripts": {
+    "start": "node ./server.js",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "handlebars": "^4.7.6",
+    "webpack": "^5.5.0"
+  },
+  "devDependencies": {}
+}
