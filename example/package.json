@@ -13,7 +13,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "handlebars": "^4.7.6",
-    "webpack": "^5.5.0"
+    "webpack": "^5.5.0",
+    "getid-launcher": "^1.0.0"
   },
   "devDependencies": {}
 }
