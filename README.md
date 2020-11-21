@@ -1,12 +1,12 @@
-# GetID Web SDK Launcher
+## GetID Web SDK Launcher
 A light script for to start to use GetID 
 
 
-## Introduction
+### Introduction
 This script is intended to start GetId Web SDK on a page.
 
 
-## How to use
+### How to use
 
 1. I should install script init your project:
     
@@ -83,5 +83,11 @@ This script is intended to start GetId Web SDK on a page.
         init('getid-component', config);
     ```
 
+
+### Examples
+You can see a simple example in repository
+https://github.com/vvorld/getid-launcher/tree/main/example
+
+This example shows how use `laucher` in client side script (https://github.com/vvorld/getid-launcher/blob/main/example/client.js)
 
 
