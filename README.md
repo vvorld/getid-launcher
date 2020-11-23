@@ -33,7 +33,6 @@ This script is intended to start GetId Web SDK on a page.
     ``` js 
       const config = {
         apiUrl: 'https://example.sb.getid.dev',
-        sdkKey: 'Qm64AQyks8dmkcNb',
         flow: [
             {
                 component: 'Form',
@@ -80,7 +79,7 @@ This script is intended to start GetId Web SDK on a page.
 1. Call initialization WebSDK
 
     ``` js
-        init('getid-component', config);
+        init('getid-component', 'Qm64AQyks8dmkcNb', config);
     ```
 
 

@@ -29,27 +29,23 @@ function getScriptLink(apiUrl) {
   }
 }
 
-const init = (containerId, token, originCfg, callbacks, ...args) => {
+const init = (containerId, token, originCfg, ...args) => {
   const cfg = {
-    ...originCfg,
     containerId,
-    ...callbacks,
+    ...originCfg,
+    ...args,
   };
 
   getScriptLink(cfg.apiUrl).then(({ scriptLink = defaultLink }) => {
     const script = document.createElement('script');
     script.setAttribute('async', '');
     script.src = scriptLink.replace('getid-web-sdk-v4.min.js', 'getid-web-sdk-v5.1.0.min.js');
-
     document.getElementsByTagName('body')[0].appendChild(script);
-    const tokenProvider = typeof token === 'string' ? createPublicTokenProvider(cfg.apiUrl, token) : token;
-
     script.onload = () => {
       if (window.getidWebSdk) {
         window.getidWebSdk.init(
           cfg,
-          tokenProvider,
-          ...args,
+          token,
         );
       }
     };

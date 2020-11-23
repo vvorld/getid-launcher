@@ -1,8 +1,24 @@
+//const { init } = require('getid-launcher');
+
 import { init } from 'getid-launcher';
 
-const config = {
-  apiUrl: 'https://example.sb.getid.dev',
-  flow: [
+
+
+function onFailCallback(e) {
+  console.error(e);
+}
+function onSuccesCallback(e) {
+  console.log(e);
+}
+
+// Element Id where the widget will be rendered into
+const elementID = 'getid-component'
+//SdkKey
+const token = 'Qm64AQyks8dmkcNb'
+// Url of your sandbox
+const apiUrl = 'https://example.sb.getid.dev'
+
+const flow = [
     {
       component: 'Form',
       fields: [
@@ -46,10 +62,10 @@ const config = {
     {
       component: 'ThankYou',
     },
-  ],
-};
-
-function onFailCallback(e) {
-  console.error(e);
-}
-init('getid-component', 'Qm64AQyks8dmkcNb', config, { onFail: onFailCallback });
+  ]
+  
+init(elementID, token,  {
+  flow,
+  onFail: onFailCallback,
+  onSucces: onSuccesCallback
+});
