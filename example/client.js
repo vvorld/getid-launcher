@@ -13,8 +13,8 @@ function onSuccesCallback(e) {
 
 // Element Id where the widget will be rendered into
 const elementID = 'getid-component'
-//SdkKey
-const token = 'Qm64AQyks8dmkcNb'
+//SdkKey (you can find this key on settings page in your sandbox)
+const sdkKey = 'Qm64AQyks8dmkcNb'
 // Url of your sandbox
 const apiUrl = 'https://example.sb.getid.dev'
 
@@ -64,7 +64,7 @@ const flow = [
     },
   ]
   
-init(elementID, token,  {
+init(elementID, sdkKey,  {
   flow,
   apiUrl,
   onFail: onFailCallback,
