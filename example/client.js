@@ -66,6 +66,7 @@ const flow = [
   
 init(elementID, token,  {
   flow,
+  apiUrl,
   onFail: onFailCallback,
   onSucces: onSuccesCallback
 });

@@ -1,6 +1,6 @@
 {
   "name": "getid-launcher",
-  "version": "1.0.0-rc1",
+  "version": "1.0.0",
   "main": "./lib/bundle.js",
   "author": "GetID",
   "description": "GetID Web SDK Launcher",
