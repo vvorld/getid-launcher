@@ -74,7 +74,7 @@ This script is intended to start GetId Web SDK on a page.
     ```
 1. Create element in DOM where SDK should be included:
     ```html
-        <div id='getid-componen'>
+        <div id='getid-component'>
 
 1. Call initialization WebSDK
 
