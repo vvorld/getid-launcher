@@ -8,7 +8,7 @@ This script is intended to start GetId Web SDK on a page.
 
 ### How to use
 
-1. I should install script init your project:
+1. I should install script in your project:
     
     ```bash
     npm i getid-launcher
