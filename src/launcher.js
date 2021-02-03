@@ -16,7 +16,7 @@ const createPublicTokenProvider = (apiUrl, apiKey) => () => {
   }).then((res) => res.json());
 };
 
-const defaultLink = 'https://cdn.getid.cloud/sdk/getid-web-sdk-v5.min.js';
+const defaultLink = 'https://cdn.getid.cloud/sdk/getid-web-sdk-v6.min.js';
 
 function getScriptLink(apiUrl) {
   try {
@@ -29,9 +29,10 @@ function getScriptLink(apiUrl) {
   }
 }
 
-const init = (containerId, token, originCfg, ...args) => {
+const init = (containerId, sdkKey, originCfg, ...args) => {
   const cfg = {
     containerId,
+    sdkKey,
     ...originCfg,
     ...args,
   };
@@ -39,13 +40,16 @@ const init = (containerId, token, originCfg, ...args) => {
   getScriptLink(cfg.apiUrl).then(({ scriptLink = defaultLink }) => {
     const script = document.createElement('script');
     script.setAttribute('async', '');
-    script.src = scriptLink.replace('getid-web-sdk-v4.min.js', 'getid-web-sdk-v5.min.js');
+    const { origin, pathname } = new URL(scriptLink);
+    const updatedPath = pathname.split('/');
+    updatedPath.splice(updatedPath.length - 1, 1, 'getid-web-sdk-v6.min.js');
+    const { href } = new URL(updatedPath.join('/'), origin);
+    script.src = href;
     document.getElementsByTagName('body')[0].appendChild(script);
     script.onload = () => {
       if (window.getidWebSdk) {
         window.getidWebSdk.init(
-          cfg,
-          token,
+          cfg
         );
       }
     };

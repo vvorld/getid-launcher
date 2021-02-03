@@ -1,72 +1,39 @@
-//const { init } = require('getid-launcher');
-
 import { init } from 'getid-launcher';
 
-
-
-function onFailCallback(e) {
-  console.error(e);
-}
-function onSuccesCallback(e) {
-  console.log(e);
-}
-
 // Element Id where the widget will be rendered into
-const elementID = 'getid-component'
+const containerId = 'getid-component'
 //SdkKey (you can find this key on settings page in your sandbox)
-const sdkKey = 'Qm64AQyks8dmkcNb'
+const sdkKey = 'yourSdkKey'
 // Url of your sandbox
-const apiUrl = 'https://example.sb.getid.dev'
+const apiUrl = 'https://example.com'
 
-const flow = [
-    {
-      component: 'Form',
-      fields: [
-        {
-          label: 'First Name',
-          type: 'text',
-          name: 'First name',
-          required: false,
-          value: '',
-        },
-        {
-          label: 'Last Name',
-          type: 'text',
-          name: 'Last name',
-          required: false,
-        },
-        {
-          label: 'Date Of Birth',
-          type: 'date',
-          name: 'Date of birth',
-          required: false,
-        },
-        {
-          label: 'I have read and understand <a href="https://getid.ee">Terms of use</a> of GetID&nbspOÜ.',
-          type: 'consent',
-          name: 'privacy',
-        },
-      ],
-    },
-    {
-      component: 'DocumentPhoto',
-      showRules: true,
-      interactive: true,
-      enableCheckPhoto: true,
-    },
-    {
-      component: 'Selfie',
-      showRules: false,
-      enableCheckPhoto: true,
-    },
-    {
-      component: 'ThankYou',
-    },
-  ]
-  
-init(elementID, sdkKey,  {
-  flow,
+const config = {
+  flowName: 'sdk-v6',
   apiUrl,
-  onFail: onFailCallback,
-  onSucces: onSuccesCallback
-});
+  metadata: {},
+  containerId,
+  locale: 'en',
+  profile: [{
+    value: 'Jon',
+    category: 'First name',
+  }, {
+    value: 'Dow',
+    category: 'Last name',
+  }],
+  onComplete({ id }) {
+    alert(id);
+  },
+  onFail(error) {
+    console.log(error);
+  },
+  onSortDocuments(country, documents) {
+    const desiredCountries = ['cz', 'ee'];
+    const desiredDocuments = ['id-card', 'passport', 'driving-licence', 'residence-permit'];
+
+    if (desiredCountries.includes(country)) return desiredDocuments;
+
+    return [];
+  },
+};
+  
+init(containerId, sdkKey,  config);

@@ -1,9 +1,9 @@
 {
   "name": "getid-launcher",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "main": "./lib/bundle.js",
   "author": "GetID",
-  "description": "GetID Web SDK Launcher",
+  "description": "GetID Web SDK Launcher for v6 sdk",
   "license": "MIT",
   "homepage": "https://github.com/vvorld/getid-launcher#readme",
   "scripts": {
