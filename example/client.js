@@ -8,32 +8,26 @@ const sdkKey = 'yourSdkKey'
 const apiUrl = 'https://example.com'
 
 const config = {
-  flowName: 'sdk-v6',
   apiUrl,
-  metadata: {},
+  sdkKey,
+  onFail: (code) => console.log(code),
+  onComplete: (result) => console.log(result),
+  profile: [
+    { value: 'Jon', category: 'First name' },
+    { value: 'Dow', category: 'Last name' },
+    { value: '1111-11-11', category: 'Date of expiry' },
+  ],
   containerId,
-  locale: 'en',
-  profile: [{
-    value: 'Jon',
-    category: 'First name',
-  }, {
-    value: 'Dow',
-    category: 'Last name',
-  }],
-  onComplete({ id }) {
-    alert(id);
+  flowName: 'sdk-v6',
+  locale: 'ru',
+  metadata: {
+    externalId: 'qwerty',
+    labels: {
+      test1: 123,
+      test2: 'qwertyuio'
+    }
   },
-  onFail(error) {
-    console.log(error);
-  },
-  onSortDocuments(country, documents) {
-    const desiredCountries = ['cz', 'ee'];
-    const desiredDocuments = ['id-card', 'passport', 'driving-licence', 'residence-permit'];
-
-    if (desiredCountries.includes(country)) return desiredDocuments;
-
-    return [];
-  },
-};
+  mode: 'popup',
+}
   
-init(containerId, sdkKey,  config);
+init(config);
