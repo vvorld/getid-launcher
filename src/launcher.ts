@@ -1,11 +1,13 @@
-const createPublicTokenProvider = (apiUrl, apiKey) => () => {
+import { PageSideConfig, getLinkScriptResponse } from './index';
+
+const createPublicTokenProvider = (apiUrl: string, apiKey: string) => async () => {
   if (!apiUrl) {
     throw new Error('Missing api url');
   }
   if (!apiKey) {
     throw new Error('Missing api key');
-  }
-  return fetch(`${apiUrl}/sdk/v1/token`, {
+  };
+  const result = await fetch(`${apiUrl}/sdk/v1/token`, {
     method: 'POST',
     body: JSON.stringify({}),
     headers: {
@@ -13,31 +15,22 @@ const createPublicTokenProvider = (apiUrl, apiKey) => () => {
       'Access-Control-Allow-Origin': '*',
       apiKey,
     },
-  }).then((res) => res.json());
+  });
+  return result.json()
 };
 
 const defaultLink = 'https://cdn.getid.cloud/sdk/getid-web-sdk-v6.min.js';
 
-function getScriptLink(apiUrl) {
-  try {
-    return fetch(`${apiUrl}/sdk/v1/script-link`, {
+function getScriptLink(apiUrl: string): Promise<getLinkScriptResponse> {
+  return fetch(`${apiUrl}/sdk/v1/script-link`, {
       method: 'POST',
       body: JSON.stringify({}),
-    }).then((res) => res.json());
-  } catch (e) {
-    return { };
-  }
+    }).then((res) => res.json()).catch(err => console.log(err))
 }
 
-const init = (containerId, sdkKey, originCfg, ...args) => {
-  const cfg = {
-    containerId,
-    sdkKey,
-    ...originCfg,
-    ...args,
-  };
+const init = (config: PageSideConfig): void => {
 
-  getScriptLink(cfg.apiUrl).then(({ scriptLink = defaultLink }) => {
+  getScriptLink(config.apiUrl).then(({ scriptLink = defaultLink }) => {
     const script = document.createElement('script');
     script.setAttribute('async', '');
     const { origin, pathname } = new URL(scriptLink);
@@ -49,7 +42,7 @@ const init = (containerId, sdkKey, originCfg, ...args) => {
     script.onload = () => {
       if (window.getidWebSdk) {
         window.getidWebSdk.init(
-          cfg
+          config
         );
       }
     };
