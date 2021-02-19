@@ -11,7 +11,7 @@ This script is intended to start GetId Web SDK on a page.
 1. I should install script in your project:
     
     ```bash
-    npm i getid-launcher
+    npm i getid-launcher@1.0.1
     ```
 
 1. Import function into your client code:
