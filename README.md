@@ -13,7 +13,7 @@ For the previous version read [LAUNCHER V1 documentation](https://github.com/vvo
 1. I should install script in your project:
     
     ```bash
-    npm i getid-launcher@1.0.1
+    npm i getid-launcher
     ```
 
 1. Import function into your client code:
