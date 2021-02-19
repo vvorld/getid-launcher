@@ -18,7 +18,7 @@ const config = {
     { value: '1111-11-11', category: 'Date of expiry' },
   ],
   containerId,
-  flowName: 'sdk-v6',
+  flowName: 'YOUR_FLOW_NAME',
   locale: 'ru',
   metadata: {
     externalId: 'qwerty',

@@ -5,11 +5,8 @@ import { init } from 'getid-launcher';
 
 // Element Id where the widget will be rendered into
 const containerId = 'getid-component'
-//SdkKey (you can find this key on settings page in your sandbox)
-const sdkKey = 'yourSdkKey'
 // Url of your sandbox
-const apiUrl = 'https://ar.dev.getid.dev'
-console.log(jwt)
+const apiUrl = 'https://YOUR_API_URL'
 
 const config = {
   apiUrl,
@@ -22,7 +19,7 @@ const config = {
     { value: '1111-11-11', category: 'Date of expiry' },
   ],
   containerId,
-  flowName: 'sdk-v6',
+  flowName: 'YOUR_FLOW_NAME',
   locale: 'ru',
   metadata: {
     externalId: 'qwerty',
