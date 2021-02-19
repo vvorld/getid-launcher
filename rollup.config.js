@@ -1,9 +1,11 @@
-import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import { uglify } from 'rollup-plugin-uglify';
+import { babel } from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import { terser } from "rollup-plugin-terser";
+import typescript from '@rollup/plugin-typescript';
+import dts from "rollup-plugin-dts";
 
-const config = {
-  input: 'src/launcher.js',
+const config = [{
+  input: 'src/launcher.ts',
   output: [{
     name: 'getid-launcher.js',
     file: `${__dirname}/lib/bundle.js`,
@@ -11,17 +13,23 @@ const config = {
     compact: true,
   }],
   plugins: [
+    typescript({declaration: true}),
     babel({
-      runtimeHelpers: true,
+      babelHelpers: 'runtime',
+      skipPreflightCheck: true,
       exclude: 'node_modules/**',
       presets: ['@babel/env'],
-      plugins: [],
     }),
     commonjs({
       include: 'node_modules/**',
     }),
-    uglify(),
+    terser(),
   ],
-};
+},
+{
+  input: "./src/index.d.ts",
+  output: [{ file: "lib/bundle.d.ts", format: "es" }],
+  plugins: [dts()],
+},]
 
 export default config;

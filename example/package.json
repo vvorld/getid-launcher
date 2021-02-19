@@ -12,11 +12,12 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
     "handlebars": "^4.7.6",
-    "webpack": "^5.5.0",
-    "getid-launcher": "^1.0.0"
+    "webpack": "^5.5.0"
   },
   "devDependencies": {
+    "axios": "^0.21.1",
     "webpack-cli": "^4.2.0"
   }
 }

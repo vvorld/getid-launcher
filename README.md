@@ -3,9 +3,11 @@ A light script for to start to use GetID
 
 
 ### Introduction
-This script is intended to start GetId Web SDK on a page.
+This script is intended to start GetId Web SDK v6 on web a page. For a launch sdk v6 read
+[sdk v5 README](https://github.com/vvorld/getid-launcher/tree/v6)
 
 
+For the previous version read [LAUNCHER V1 documentation](https://github.com/vvorld/getid-launcher/blob/v1/README.md)
 ### How to use
 
 1. I should install script in your project:
@@ -27,50 +29,8 @@ This script is intended to start GetId Web SDK on a page.
     ```
 
 1. Compile SDK configuration object:
-    You can get more information on https://github.com/vvorld/getid-web-sdk
+    You can get more information on https://github.com/vvorld/getid-web-sdk/tree/v6
 
-    Example: 
-    ``` js 
-      const config = {
-        apiUrl: 'https://example.sb.getid.dev',
-        flow: [
-            {
-                component: 'Form',
-                fields: [
-                    {
-                        label: 'First Name',
-                        type: 'text',
-                        name: 'First name',
-                        required: false,
-                        value: '',
-                    },
-                    {
-                        label: 'Last Name',
-                        type: 'text',
-                        name: 'Last name',
-                        required: false,
-                    },
-                    {
-                        label: 'Date Of Birth',
-                        type: 'date',
-                        name: 'Date of birth',
-                        required: false,
-                    },
-                ],
-            },
-            {
-                component: 'DocumentPhoto',
-            },
-            {
-                component: 'Selfie',
-            },
-            {
-                component: 'ThankYou',
-            },
-        ],
-        onFail: (e) => console.error(e),
-        onSuccess: (e) => console.log('Success:', e),
-    };
     ```
 1. Create element in DOM where SDK should be included:
     ```html
@@ -79,7 +39,7 @@ This script is intended to start GetId Web SDK on a page.
 1. Call initialization WebSDK
 
     ``` js
-        init('getid-component', 'Qm64AQyks8dmkcNb', config);
+        init(config);
     ```
 
 
@@ -87,6 +47,4 @@ This script is intended to start GetId Web SDK on a page.
 You can see a simple example in repository
 https://github.com/vvorld/getid-launcher/tree/main/example
 
-This example shows how use `laucher` in client side script (https://github.com/vvorld/getid-launcher/blob/main/example/client.js)
-
-
+This example shows how use `launcher` in client side script (https://github.com/vvorld/getid-launcher/blob/main/example/client.js)
