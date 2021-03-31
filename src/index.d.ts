@@ -1,6 +1,4 @@
-import { init } from './launcher';
-
-export { init };
+declare const init: (config: PageSideConfig) => void;
 
 interface Profile {
   category: string,
@@ -11,11 +9,18 @@ interface Metadata {
   externalId: string,
   labels: object,
 }
-
-export interface PageSideConfig {
-  apiUrl: string,
-  sdkKey: string,
+interface JwtAuthorization extends  MainPageSideConfig{
   jwt: string,
+}
+
+interface SdkKyeAuthorization extends  MainPageSideConfig{
+  sdkKey: string,
+}
+
+type PageSideConfig = JwtAuthorization | SdkKyeAuthorization;
+
+interface MainPageSideConfig {
+  apiUrl: string,
   containerId: string,
   flowName: string,
   metadata?: Metadata,
@@ -28,7 +33,7 @@ export interface PageSideConfig {
   injectCSS?: string, 
 }
 
-export interface getLinkScriptResponse {
+interface getLinkScriptResponse {
   responseCode: 400 | 200
   message?: string,
   scriptLink?: string,
@@ -43,3 +48,5 @@ declare global {
     getidWebSdk: GetidWebSdk
   }
 }
+
+export { PageSideConfig, getLinkScriptResponse, init };
