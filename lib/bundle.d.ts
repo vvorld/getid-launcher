@@ -9,11 +9,18 @@ interface Metadata {
   externalId: string,
   labels: object,
 }
-
-interface PageSideConfig {
-  apiUrl: string,
-  sdkKey: string,
+interface JwtAuthorization extends  MainPageSideConfig{
   jwt: string,
+}
+
+interface SdkKyeAuthorization extends  MainPageSideConfig{
+  sdkKey: string,
+}
+
+type PageSideConfig = JwtAuthorization | SdkKyeAuthorization;
+
+interface MainPageSideConfig {
+  apiUrl: string,
   containerId: string,
   flowName: string,
   metadata?: Metadata,
