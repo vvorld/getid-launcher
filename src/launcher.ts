@@ -1,4 +1,4 @@
-import { PageSideConfig, getLinkScriptResponse } from './index';
+import { PageSideConfig, getLinkScriptResponse, Version } from './index';
 
 const createPublicTokenProvider = (apiUrl: string, apiKey: string) => async () => {
   if (!apiUrl) {
@@ -28,14 +28,13 @@ function getScriptLink(apiUrl: string): Promise<getLinkScriptResponse> {
     }).then((res) => res.json()).catch(err => console.log(err))
 }
 
-const init = (config: PageSideConfig): void => {
-
+function init (config: PageSideConfig, version: Version = 'v6'): void {
   getScriptLink(config.apiUrl).then(({ scriptLink = defaultLink }) => {
     const script = document.createElement('script');
     script.setAttribute('async', '');
     const { origin, pathname } = new URL(scriptLink);
     const updatedPath = pathname.split('/');
-    updatedPath.splice(updatedPath.length - 1, 1, 'getid-web-sdk-v6.min.js');
+    updatedPath.splice(updatedPath.length - 1, 1, `getid-web-sdk-${version}.min.js`);
     const { href } = new URL(updatedPath.join('/'), origin);
     script.src = href;
     document.getElementsByTagName('body')[0].appendChild(script);

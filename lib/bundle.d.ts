@@ -1,4 +1,4 @@
-declare const init: (config: PageSideConfig) => void;
+declare const init: (config: PageSideConfig, version?: Version) => void;
 
 interface Profile {
   category: string,
@@ -40,7 +40,7 @@ interface getLinkScriptResponse {
 }
 
 interface GetidWebSdk {
-  init: (config: object) => void
+  init: (config: PageSideConfig) => void
 }
 
 declare global {
@@ -49,4 +49,11 @@ declare global {
   }
 }
 
-export { PageSideConfig, getLinkScriptResponse, init };
+type Version = 
+  'v6' |
+  'v6.0.0' |
+  'v6.0.3' |
+  'v6.1.0' |
+  'v6.1.0-non-polyfills'
+
+export { PageSideConfig, Version, getLinkScriptResponse, init };
