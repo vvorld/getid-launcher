@@ -7,7 +7,9 @@ interface Profile {
 
 interface Metadata {
   externalId: string,
-  labels: object,
+  labels?: {
+    [labelName: string]: string
+  }
 }
 interface JwtAuthorization extends  MainPageSideConfig{
   jwt: string,
@@ -18,6 +20,17 @@ interface SdkKyeAuthorization extends  MainPageSideConfig{
 }
 
 type PageSideConfig = JwtAuthorization | SdkKyeAuthorization;
+
+type OnVerificationComplete = ((x: {[key: string]: any}) => void) | null
+
+type AcceptableDocuments = ((x: CountryDocumentTypes[]) => CountryDocumentTypes[]) | null
+
+type CountryDocumentTypes = {
+  country: string,
+  documentTypes: SupportedDocumentType[]
+}
+
+type SupportedDocumentType = 'passport' | 'id-card, driving-licence' | 'residence-permit' | 'voter-card' | 'tax-card' | 'address-card'
 
 interface MainPageSideConfig {
   apiUrl: string,
@@ -31,6 +44,15 @@ interface MainPageSideConfig {
   locale?: string,
   customerId?: string,
   injectCSS?: string, 
+  dictionary?: string,
+  onVerificationComplete?: OnVerificationComplete,
+  acceptableDocuments?: AcceptableDocuments,
+  htmlProperties?: {
+    disableSwitchDevice: boolean,
+  },
+  styles: {
+    [variableName: string]: string
+  }
 }
 
 interface getLinkScriptResponse {
@@ -54,6 +76,18 @@ type Version =
   'v6.0.0' |
   'v6.0.3' |
   'v6.1.0' |
-  'v6.1.0-non-polyfills'
+  'v6.1.0-non-polyfills' |
+  '6.2.0' |
+  '6.2.0-non-polyfills' |
+  '6.2.1' |
+  '6.2.1-non-polyfills' |
+  '6.3.0' |
+  '6.3.0-non-polyfills' |
+  '6.3.1' |
+  '6.3.1-non-polyfills' |
+  '6.3.2' |
+  '6.3.2-non-polyfills' |
+  '6.4.0' |
+  '6.4.0-non-polyfills'
 
 export { PageSideConfig, Version, getLinkScriptResponse, init };
