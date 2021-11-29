@@ -1,4 +1,10 @@
-declare const init: (config: PageSideConfig, version?: Version) => void;
+type GetIdWebSdkComponent = {
+  unmount: () => void;
+  changeThemeMode: (theme: 'dark' | 'light') => void;
+}
+declare const init: (config: PageSideConfig, version?: Version) => Promise<GetIdWebSdkComponent>;
+
+
 
 interface Profile {
   category: string,
@@ -62,7 +68,7 @@ interface getLinkScriptResponse {
 }
 
 interface GetidWebSdk {
-  init: (config: PageSideConfig) => void
+  init: (config: PageSideConfig) => Promise<GetIdWebSdkComponent>
 }
 
 declare global {
@@ -88,6 +94,8 @@ type Version =
   '6.3.2' |
   '6.3.2-non-polyfills' |
   '6.4.0' |
-  '6.4.0-non-polyfills'
+  '6.4.0-non-polyfills' |
+  '6.9.2' |
+  '6.9.2-non-polyfills'
 
-export { PageSideConfig, Version, getLinkScriptResponse, init };
+export { GetIdWebSdkComponent, PageSideConfig, Version, getLinkScriptResponse, init };

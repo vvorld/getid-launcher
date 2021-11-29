@@ -1,4 +1,4 @@
-import { PageSideConfig, getLinkScriptResponse, Version } from './index';
+import { PageSideConfig, getLinkScriptResponse, Version, GetIdWebSdkComponent } from './index';
 
 const createPublicTokenProvider = (apiUrl: string, apiKey: string) => async () => {
   if (!apiUrl) {
@@ -28,24 +28,31 @@ function getScriptLink(apiUrl: string): Promise<getLinkScriptResponse> {
     }).then((res) => res.json()).catch(err => console.log(err))
 }
 
-function init (config: PageSideConfig, version: Version = 'v6'): void {
-  getScriptLink(config.apiUrl).then(({ scriptLink = defaultLink }) => {
-    const script = document.createElement('script');
-    script.setAttribute('async', '');
-    const { origin, pathname } = new URL(scriptLink);
-    const updatedPath = pathname.split('/');
-    updatedPath.splice(updatedPath.length - 1, 1, `getid-web-sdk-${version}.min.js`);
-    const { href } = new URL(updatedPath.join('/'), origin);
-    script.src = href;
-    document.getElementsByTagName('body')[0].appendChild(script);
-    script.onload = () => {
-      if (window.getidWebSdk) {
-        window.getidWebSdk.init(
-          config
-        );
-      }
-    };
-  });
+function init (config: PageSideConfig, version: Version = 'v6'): Promise<GetIdWebSdkComponent> {
+  return new Promise((res, rej) => {
+    getScriptLink(config.apiUrl).then(({ scriptLink = defaultLink }) => {
+      const script = document.createElement('script');
+      script.setAttribute('async', '');
+      const { origin, pathname } = new URL(scriptLink);
+      const updatedPath = pathname.split('/');
+      updatedPath.splice(updatedPath.length - 1, 1, `getid-web-sdk-${version}.min.js`);
+      const { href } = new URL(updatedPath.join('/'), origin);
+      script.src = href;
+      document.getElementsByTagName('body')[0].appendChild(script);
+      script.onload = () => {
+        if (window.getidWebSdk) {
+          window.getidWebSdk.init(
+            config
+          ).then(result => res(result));
+        }
+      };
+      script.onerror = (err) => rej(err) 
+    }).catch(err => {
+      console.log(err)
+      rej(err)
+    });
+  })
+  
 };
 
 export { init, createPublicTokenProvider };
