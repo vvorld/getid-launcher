@@ -1,0 +1,47 @@
+name: Publish new version
+
+env:
+  NODE_VERSION: v14.16.x
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  S3_BUCKET: ${{ secrets.S3_BUCKET }}/sdk
+  S3_BUCKET_REGION: ${{ secrets.S3_BUCKET_REGION }}
+  CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+
+on:
+  push:
+    branches: 
+    - main
+
+jobs:
+  build:
+    runs-on: [self-hosted, dev]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Prepare environment
+        run: |
+          npm i -g npm@7
+          npm ci
+          npm test
+
+  publish-npm:
+    needs: build
+    runs-on: [self-hosted, dev]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org/
+      - run: |
+          npm ci
+          npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_AUTH_TOKEN }}"
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

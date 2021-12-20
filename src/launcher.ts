@@ -6,7 +6,7 @@ const createPublicTokenProvider = (apiUrl: string, apiKey: string) => async () =
   }
   if (!apiKey) {
     throw new Error('Missing api key');
-  };
+  }
   const result = await fetch(`${apiUrl}/sdk/v1/token`, {
     method: 'POST',
     body: JSON.stringify({}),
@@ -16,7 +16,7 @@ const createPublicTokenProvider = (apiUrl: string, apiKey: string) => async () =
       apiKey,
     },
   });
-  return result.json()
+  return result.json();
 };
 
 const defaultLink = 'https://cdn.getid.cloud/sdk/getid-web-sdk-v6.min.js';
@@ -25,7 +25,7 @@ function getScriptLink(apiUrl: string): Promise<getLinkScriptResponse> {
   return fetch(`${apiUrl}/sdk/v1/script-link`, {
       method: 'POST',
       body: JSON.stringify({}),
-    }).then((res) => res.json()).catch(err => console.log(err))
+    }).then((res) => res.json()).catch((err) => console.log(err));
 }
 
 function init (config: PageSideConfig, version: Version = 'v6'): Promise<GetIdWebSdkComponent> {
@@ -43,16 +43,15 @@ function init (config: PageSideConfig, version: Version = 'v6'): Promise<GetIdWe
         if (window.getidWebSdk) {
           window.getidWebSdk.init(
             config
-          ).then(result => res(result));
+          ).then((result) => res(result));
         }
       };
-      script.onerror = (err) => rej(err) 
-    }).catch(err => {
-      console.log(err)
-      rej(err)
+      script.onerror = (err) => rej(err);
+    }).catch((err) => {
+      console.log(err);
+      rej(err);
     });
-  })
-  
-};
+  });
+}
 
 export { init, createPublicTokenProvider };

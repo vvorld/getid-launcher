@@ -1,0 +1,65 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "overrides": [{ "files": ["*.js"] }],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [["~", "./src"]],
+        "extensions": [".js", ".ts"]
+      },
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  },
+  "rules": {
+    "import/no-unresolved": "error",
+    "import/no-cycle": "error",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
+    "no-console": "off",
+    "object-curly-newline": "off",
+    "no-use-before-define": "off",
+    "import/prefer-default-export": "off",
+    "import/extensions": "off",
+    "no-await-in-loop": "off",
+    "max-len": "off",
+    "no-return-await": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
+    "comma-dangle": "off",
+    "indent": "off",
+    "no-confusing-arrow": "off",
+    "operator-linebreak": "off",
+    "implicit-arrow-linebreak": "off",
+    "function-paren-newline": "off",
+    "nonblock-statement-body-position": "off",
+    "curly": "off",
+    "no-template-curly-in-string": "off",
+    "no-underscore-dangle": "off",
+    "space-before-function-paren": "off",
+    "no-param-reassign": "off"
+  }
+}
