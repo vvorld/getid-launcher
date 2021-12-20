@@ -29,6 +29,7 @@ jobs:
           npm i -g npm@7
           npm ci
           npm test
+          npm run lint
 
   publish-npm:
     needs: build
