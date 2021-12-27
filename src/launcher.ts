@@ -29,7 +29,7 @@ function getScriptLink(apiUrl: string): Promise<getLinkScriptResponse> {
     }).then((res) => res.json()).catch((err) => console.log(err));
 }
 
-function init (config: PageSideConfig, version: Version = latestVersion): Promise<GetIdWebSdkComponent> {
+function init (config: PageSideConfig, version: Version = 'v6'): Promise<GetIdWebSdkComponent> {
   return new Promise((res, rej) => {
     getScriptLink(config.apiUrl).then(({ scriptLink = defaultLink }) => {
       const script = document.createElement('script');
