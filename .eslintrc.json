@@ -60,6 +60,7 @@
     "no-template-curly-in-string": "off",
     "no-underscore-dangle": "off",
     "space-before-function-paren": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "import/no-extraneous-dependencies": "off"
   }
 }

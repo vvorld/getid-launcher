@@ -34,6 +34,31 @@ const config = [
     plugins: [dts()],
     sourcemap: false
   },
+  {
+    input: 'src/lib.ts',
+    output: [{
+      name: 'getidWebSdk',
+      esModule: false,
+      exports: 'named',
+      file: `${__dirname}/lib/getid-web-sdk-launcher-v6.min.js`,
+      format: 'umd',
+      compact: true,
+      sourcemap: false,
+    }],
+    plugins: [
+      typescript({ declaration: true }),
+      babel({
+        babelHelpers: 'runtime',
+        skipPreflightCheck: true,
+        exclude: 'node_modules/**',
+        presets: ['@babel/env'],
+      }),
+      commonjs({
+        include: 'node_modules/**',
+      }),
+      terser(),
+    ],
+  },
 ];
 
 export default config;
