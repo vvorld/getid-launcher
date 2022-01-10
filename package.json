@@ -1,6 +1,6 @@
 {
   "name": "getid-launcher",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "main": "./lib/bundle.js",
   "types": "./lib/bundle.d.ts",
   "author": "GetID",
