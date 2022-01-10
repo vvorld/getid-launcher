@@ -19,10 +19,18 @@ const createPublicTokenProvider = (apiUrl: string, apiKey: string) => async () =
   return result.json();
 };
 
-function getScriptLink(apiUrl: string): Promise<getLinkScriptResponse> {
-  return fetch(`${apiUrl}/sdk/v2/script-link`, {
-    }).then((res) => res.json()).catch((err) => console.log(err));
-}
+let getScriptLink = async (apiUrl: string): Promise<getLinkScriptResponse> => {
+  let result: getLinkScriptResponse = { responseCode: 400 };
+  try {
+    result = await fetch(`${apiUrl}/sdk/v2/script-link`).then((res) => res.json());
+    if (result.scriptLink) {
+      getScriptLink = async () => result;
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  return result;
+};
 
 function init (config: PageSideConfig, version: Version = 'v6'): Promise<GetIdWebSdkComponent> {
   const defaultLink = `https://cdn.getid.cloud/sdk/getid-web-sdk-${version}.min.js`;
