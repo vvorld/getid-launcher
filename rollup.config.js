@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
+import json from '@rollup/plugin-json';
 
 const config = [
   {
@@ -25,6 +26,7 @@ const config = [
       commonjs({
         include: 'node_modules/**',
       }),
+      json(),
       terser(),
     ],
   },
@@ -56,6 +58,7 @@ const config = [
       commonjs({
         include: 'node_modules/**',
       }),
+      json(),
       terser(),
     ],
   },

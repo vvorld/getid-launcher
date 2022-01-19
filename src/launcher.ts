@@ -1,4 +1,5 @@
 import { PageSideConfig, getLinkScriptResponse, Version, GetIdWebSdkComponent } from './index';
+import { version as packageVersion } from '../package.json';
 
 const createPublicTokenProvider = (apiUrl: string, apiKey: string) => async () => {
   if (!apiUrl) {
@@ -22,7 +23,8 @@ const createPublicTokenProvider = (apiUrl: string, apiKey: string) => async () =
 let getScriptLink = async (apiUrl: string): Promise<getLinkScriptResponse> => {
   let result: getLinkScriptResponse = { responseCode: 400 };
   try {
-    result = await fetch(`${apiUrl}/sdk/v2/script-link`).then((res) => res.json());
+    const headers = { 'x-web-sdk-launcher-version': packageVersion };
+    result = await fetch(`${apiUrl}/sdk/v2/script-link`, { headers }).then((res) => res.json());
     if (result.scriptLink) {
       getScriptLink = async () => result;
     }
