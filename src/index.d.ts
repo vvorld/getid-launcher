@@ -61,7 +61,8 @@ type FatalErrorCode =
   | 'apiurl_mismatch'
   | 'token_mismatch'
   | 'browser_not_supported'
-  | 'no_camera';
+  | 'no_camera'
+  | 'token_expired';
 
 interface MainPageSideConfig {
   apiUrl: string,
