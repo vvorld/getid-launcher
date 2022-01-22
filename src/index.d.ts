@@ -71,7 +71,7 @@ interface MainPageSideConfig {
   metadata?: Metadata,
   mode?: 'popup' | 'inline',
   onBack?: () => void,
-  onFail?: (error: {code: FatalErrorCode | string, message: string}) => void,
+  onFail?: (err: {code: FatalErrorCode | string, message: string}) => void,
   onComplete?: (result: {applicationId: string, responseCode: number}) => void,
   onVerificationComplete?: OnVerificationComplete,
   acceptableDocuments?: AcceptableDocuments,
