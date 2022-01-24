@@ -133,7 +133,8 @@ type FatalErrorCode =
   | 'apiurl_mismatch'
   | 'token_mismatch'
   | 'browser_not_supported'
-  | 'no_camera';
+  | 'no_camera'
+  | 'token_expired';
 
 interface MainPageSideConfig {
   apiUrl: string,
@@ -142,7 +143,7 @@ interface MainPageSideConfig {
   metadata?: Metadata,
   mode?: 'popup' | 'inline',
   onBack?: () => void,
-  onFail?: (code: string) => void,
+  onFail?: (err: {code: FatalErrorCode | string, message: string}) => void,
   onComplete?: (result: {applicationId: string, responseCode: number}) => void,
   onVerificationComplete?: OnVerificationComplete,
   acceptableDocuments?: AcceptableDocuments,

@@ -47,7 +47,8 @@ function init (config: PageSideConfig, version: Version = 'v6'): Promise<GetIdWe
         if (window.getidWebSdk) {
           window.getidWebSdk.init(
             config
-          ).then((result) => res(result));
+          ).then((result) => res(result))
+          .catch((err) => rej(err));
         }
       };
       script.onerror = (err) => rej(err);
