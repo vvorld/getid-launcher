@@ -134,7 +134,25 @@ type FatalErrorCode =
   | 'token_mismatch'
   | 'browser_not_supported'
   | 'no_camera'
-  | 'token_expired';
+  | 'token_expired'
+
+type ErrorCode =
+  | 'internal'
+  | 'sdkkey_invalid'
+  | 'configuration_not_found'
+  | 'token_malformed'
+  | 'schema_mismatch'
+  | 'api_version_mismatch'
+  | 'token_invalid'
+  | 'token_expired'
+  | 'customerid_exists'
+  | 'camera_not_allowed'
+  | 'camera_generic'
+  | 'file_type'
+  | 'verification_fail'
+  | 'bad_request'
+  | 'server_unavailable'
+  | FatalErrorCode
 
 interface MainPageSideConfig {
   apiUrl: string,
@@ -143,7 +161,7 @@ interface MainPageSideConfig {
   metadata?: Metadata,
   mode?: 'popup' | 'inline',
   onBack?: () => void,
-  onFail?: (err: {code: FatalErrorCode | string, message: string}) => void,
+  onFail?: (err: {code: ErrorCode | string, message: string}) => void,
   onComplete?: (result: {applicationId: string, responseCode: number}) => void,
   onVerificationComplete?: OnVerificationComplete,
   acceptableDocuments?: AcceptableDocuments,
