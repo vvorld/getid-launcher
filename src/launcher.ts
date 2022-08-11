@@ -34,8 +34,8 @@ let getScriptLink = async (apiUrl: string): Promise<getLinkScriptResponse> => {
   return result;
 };
 
-function init (config: PageSideConfig, version: Version = 'v6'): Promise<GetIdWebSdkComponent> {
-  const defaultLink = `https://cdn.getid.cloud/sdk/getid-web-sdk-${version}.min.js`;
+function init (config: PageSideConfig): Promise<GetIdWebSdkComponent> {
+  const defaultLink = 'https://cdn.getid.cloud/sdk/getid-web-sdk-v6.min.js';
 
   return new Promise((res, rej) => {
     getScriptLink(config.apiUrl).then(({ scriptLink = defaultLink }) => {
