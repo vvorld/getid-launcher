@@ -44,7 +44,7 @@ import { init } from 'getid-launcher';
 **Via CDN**
 
 ```html
-<script src='https://cdn.getid.cloud/sdk/getid-web-sdk-launcher-v6.min.js'></script>
+<script src='https://cdn.getid.cloud/sdk/getid-web-sdk-launcher-v7.min.js'></script>
 
 <div id="targetContainer">
     All content here will be overwritten
