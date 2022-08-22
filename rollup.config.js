@@ -32,8 +32,11 @@ const config = [
   },
   {
     input: './src/index.d.ts',
-    output: [{ file: 'lib/bundle.d.ts', format: 'es' }],
-    plugins: [dts()],
+    output: [{ file: `${__dirname}/lib/bundle.d.ts`, format: 'es' }],
+    plugins: [
+      typescript({ declaration: true }),
+      dts()
+    ],
     sourcemap: false
   },
   {
@@ -42,7 +45,7 @@ const config = [
       name: 'getidWebSdk',
       esModule: false,
       exports: 'named',
-      file: `${__dirname}/lib/getid-web-sdk-launcher-v6.min.js`,
+      file: `${__dirname}/lib/getid-web-sdk-launcher-v7.min.js`,
       format: 'umd',
       compact: true,
       sourcemap: false,

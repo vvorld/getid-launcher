@@ -1,4 +1,4 @@
-import { PageSideConfig, getLinkScriptResponse, Version, GetIdWebSdkComponent } from './index';
+import { PageSideConfig, getLinkScriptResponse, GetIdWebSdkComponent } from './index';
 import { version as packageVersion } from '../package.json';
 
 const createPublicTokenProvider = (apiUrl: string, apiKey: string) => async () => {
@@ -20,11 +20,18 @@ const createPublicTokenProvider = (apiUrl: string, apiKey: string) => async () =
   return result.json();
 };
 
-let getScriptLink = async (apiUrl: string): Promise<getLinkScriptResponse> => {
+let getScriptLink = async (apiUrl: string, flowName?: string, experimentalKey?: string): Promise<getLinkScriptResponse> => {
   let result: getLinkScriptResponse = { responseCode: 400 };
   try {
     const headers = { 'x-web-sdk-launcher-version': packageVersion };
-    result = await fetch(`${apiUrl}/sdk/v2/script-link`, { headers }).then((res) => res.json());
+    const url = new URL(`${apiUrl}/sdk/v2/script-link`);
+    if (flowName) {
+      url.searchParams.append('flowName', flowName);
+    }
+    if (experimentalKey) {
+      url.searchParams.append('experimentalKey', experimentalKey);
+    }
+    result = await fetch(url.toString(), { headers }).then((res) => res.json());
     if (result.scriptLink) {
       getScriptLink = async () => result;
     }
@@ -38,7 +45,7 @@ function init (config: PageSideConfig): Promise<GetIdWebSdkComponent> {
   const defaultLink = 'https://cdn.getid.cloud/sdk/getid-web-sdk-v6.min.js';
 
   return new Promise((res, rej) => {
-    getScriptLink(config.apiUrl).then(({ scriptLink = defaultLink }) => {
+    getScriptLink(config.apiUrl, config.flowName, config.experimentalKey).then(({ scriptLink = defaultLink }) => {
       const script = document.createElement('script');
       script.setAttribute('async', '');
       script.src = scriptLink;

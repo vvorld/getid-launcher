@@ -1,10 +1,9 @@
-import { Version } from './versions';
-
 type GetIdWebSdkComponent = {
   unmount: () => void;
   changeThemeMode: (theme: 'dark' | 'light') => void;
+  sdkVersion?: string
 }
-declare const init: (config: PageSideConfig, version?: Version) => Promise<GetIdWebSdkComponent>;
+declare const init: (config: PageSideConfig) => Promise<GetIdWebSdkComponent>;
 
 type Category = 'First name' | 'Last name' | 'Date of birth' | 'Address' | 'Date of expiry' | 'Date of issue' | 'Document number' | 'Gender' | 'Nationality' | 'Personal number'
 
@@ -107,6 +106,7 @@ interface MainPageSideConfig {
   }
   themeMode?: 'dark' | 'light'
   address?: PoaParsedAddress,
+  experimentalKey?: string
 }
 
 interface getLinkScriptResponse {
@@ -126,5 +126,5 @@ declare global {
 }
 
 export {
-  PageSideConfig, getLinkScriptResponse, init, Version, GetIdWebSdkComponent
+  PageSideConfig, getLinkScriptResponse, init, GetIdWebSdkComponent
 };
