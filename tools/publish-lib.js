@@ -2,7 +2,7 @@ import aws from 'aws-sdk';
 import envConfig from 'dotenv';
 import fs from 'fs/promises';
 
-const LIB_FILE_NAME = 'getid-web-sdk-launcher-v6.min.js';
+const LIB_FILE_NAME = 'getid-web-sdk-launcher-v7.min.js';
 const PATH_TO_LIB = `${__dirname}/../lib/${LIB_FILE_NAME}`;
 const uploadLib = async () => {
   envConfig.config();
@@ -11,21 +11,28 @@ const uploadLib = async () => {
     SECRET_ACCESS_KEY,
     REGION,
     BUCKET,
+    DISTRIBUTION_ID
   } = process.env;
-  aws.config.update({
+
+  const config = {
     accessKeyId: ACCESS_KEY_ID,
     secretAccessKey: SECRET_ACCESS_KEY,
     region: REGION,
     Bucket: BUCKET,
-  });
-  const s3 = new aws.S3();
+  };
+
+  aws.config.update(config);
+  const s3 = new aws.S3(config);
   const fileLib = await fs.readFile(PATH_TO_LIB, 'utf-8');
+
   const params = {
     Bucket: `${BUCKET}/sdk`,
     Key: LIB_FILE_NAME,
     Body: fileLib,
-    ACL: 'public-read',
+    ACL: 'private',
     ContentType: 'text/javascript',
+    DistributionId: DISTRIBUTION_ID,
+
   };
   s3.upload(params, (err, result) => {
     if (err) {
@@ -62,7 +69,7 @@ const invalidate = async () => {
       Paths: {
         Quantity: 1,
         Items: [
-          '/sdk/getid-web-sdk-launcher-v6*',
+          '/sdk/getid-web-sdk-launcher-v7*',
         ]
       }
     }
@@ -74,6 +81,7 @@ const invalidate = async () => {
     }
     if (res) {
       console.log(res);
+      console.log('invalidation started')
     }
   });
 };
