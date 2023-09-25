@@ -41,11 +41,15 @@ let getScriptLink = async (apiUrl: string, flowName?: string, experimentalKey?: 
   return result;
 };
 
-function init (config: PageSideConfig): Promise<GetIdWebSdkComponent> {
-  const defaultLink = 'https://cdn.getid.cloud/sdk/getid-web-sdk-v6.min.js';
+function init(config: PageSideConfig): Promise<GetIdWebSdkComponent> {
+  const fallbackVersion = process.env.FALLBACK_SDK_VERSION || 'v6';
+  const scriptSuffix = process.env.SCRIPT_NAME_SUFFIX || '';
+  const defaultLink = `https://cdn.getid.cloud/sdk/getid-web-sdk-${fallbackVersion}${scriptSuffix}.min.js`;
 
   return new Promise((res, rej) => {
     getScriptLink(config.apiUrl, config.flowName, config.experimentalKey).then(({ scriptLink = defaultLink }) => {
+      scriptLink = scriptLink.indexOf(scriptSuffix) >= 0 ? scriptLink : scriptLink.replace('.min.js', `${scriptSuffix}.min.js`);
+
       const script = document.createElement('script');
       script.setAttribute('async', '');
       script.src = scriptLink;
