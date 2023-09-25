@@ -1,6 +1,6 @@
 {
   "name": "getid-launcher",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "main": "./lib/bundle.js",
   "types": "lib/bundle.d.ts",
   "author": "GetID",
@@ -24,6 +24,7 @@
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-replace": "^5.0.2",
     "@rollup/plugin-typescript": "^8.3.4",
     "@types/semver": "^7.3.9",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
