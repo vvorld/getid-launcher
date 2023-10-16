@@ -81,6 +81,12 @@ type ErrorCode =
   | 'server_unavailable'
   | FatalErrorCode
 
+type FlowEvent = 'loadingComplete';
+type FlowEventType = {
+  name: FlowEvent;
+  payload?: string | number | boolean;
+}
+
 interface MainPageSideConfig {
   apiUrl: string,
   containerId: string,
@@ -93,6 +99,7 @@ interface MainPageSideConfig {
   onVerificationComplete?: OnVerificationComplete,
   acceptableDocuments?: AcceptableDocuments,
   onFatalError?: (code: FatalErrorCode) => void
+  onFlowEvent?: (event: FlowEventType) => void,
   profile?: Array<ProfileForm | ProfileFormCustom>
   locale?: string,
   customerId?: string,
@@ -125,4 +132,4 @@ declare global {
   }
 }
 
-export { GetIdWebSdkComponent, PageSideConfig, PoaParsedAddress, getLinkScriptResponse, init };
+export { FlowEvent, FlowEventType, GetIdWebSdkComponent, PageSideConfig, PoaParsedAddress, getLinkScriptResponse, init };
