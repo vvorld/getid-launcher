@@ -81,7 +81,7 @@ type ErrorCode =
   | 'server_unavailable'
   | FatalErrorCode
 
-type FlowEvent = 'loadingComplete';
+type FlowEvent = 'verificationFlowStart';
 type FlowEventType = {
   name: FlowEvent;
   payload?: string | number | boolean;
