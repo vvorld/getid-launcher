@@ -81,7 +81,7 @@ type ErrorCode =
   | 'server_unavailable'
   | FatalErrorCode
 
-export type FlowEvent = 'loadingComplete';
+export type FlowEvent = 'verificationFlowStart';
 export type FlowEventType = {
   name: FlowEvent;
   payload?: string | number | boolean;
