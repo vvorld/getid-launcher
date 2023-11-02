@@ -8,8 +8,38 @@ import replace from '@rollup/plugin-replace';
 
 const defaultEnvVariables = {
   'process.env.FALLBACK_SDK_VERSION': JSON.stringify(''),
+  'process.env.VERSION_SUFFIX': JSON.stringify(''),
   'process.env.SCRIPT_NAME_SUFFIX': JSON.stringify(''),
 };
+
+const launchers = [
+  {
+    name: 'v7',
+    env: {},
+  },
+  {
+    name: 'non-polyfills',
+    env: {
+      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v6.13.1-rc'),
+      'process.env.SCRIPT_NAME_SUFFIX': JSON.stringify('-non-polyfills'),
+    },
+  },
+  {
+    name: 'kl',
+    env: {
+      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v7'),
+      'process.env.VERSION_SUFFIX': JSON.stringify('-kl'),
+    },
+  },
+  {
+    name: 'kl-non-polyfills',
+    env: {
+      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v7'),
+      'process.env.VERSION_SUFFIX': JSON.stringify('-kl'),
+      'process.env.SCRIPT_NAME_SUFFIX': JSON.stringify('-non-polyfills'),
+    },
+  },
+];
 
 const config = [
   {
@@ -46,40 +76,13 @@ const config = [
     ],
     sourcemap: false
   },
-  {
+  ...launchers.map((launcher) => ({
     input: 'src/lib.ts',
     output: [{
       name: 'getidWebSdk',
       esModule: false,
       exports: 'named',
-      file: `${__dirname}/lib/getid-web-sdk-launcher-v7.min.js`,
-      format: 'umd',
-      compact: true,
-      sourcemap: false,
-    }],
-    plugins: [
-      typescript({ declaration: true }),
-      replace(defaultEnvVariables),
-      babel({
-        babelHelpers: 'runtime',
-        skipPreflightCheck: true,
-        exclude: 'node_modules/**',
-        presets: ['@babel/env'],
-      }),
-      commonjs({
-        include: 'node_modules/**',
-      }),
-      json(),
-      terser(),
-    ],
-  },
-  {
-    input: 'src/lib.ts',
-    output: [{
-      name: 'getidWebSdk',
-      esModule: false,
-      exports: 'named',
-      file: `${__dirname}/lib/getid-web-sdk-launcher-non-polyfills.min.js`,
+      file: `${__dirname}/lib/getid-web-sdk-launcher-${launcher.name}.min.js`,
       format: 'umd',
       compact: true,
       sourcemap: false,
@@ -88,8 +91,7 @@ const config = [
       typescript({ declaration: true }),
       replace({
         ...defaultEnvVariables,
-        'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v6.13.1-rc'),
-        'process.env.SCRIPT_NAME_SUFFIX': JSON.stringify('-non-polyfills'),
+        ...(launcher.env || {})
       }),
       babel({
         babelHelpers: 'runtime',
@@ -103,7 +105,7 @@ const config = [
       json(),
       terser(),
     ],
-  },
+  })),
 ];
 
 export default config;

@@ -41,14 +41,36 @@ let getScriptLink = async (apiUrl: string, flowName?: string, experimentalKey?: 
   return result;
 };
 
+export function prepareScriptLink(scriptLink: string, { fallbackVersion, scriptSuffix, versionSuffix, defaultLink }: {
+  fallbackVersion: string,
+  scriptSuffix: string,
+  versionSuffix: string,
+  defaultLink: string,
+  }) {
+  if (!scriptLink) {
+    return defaultLink;
+  }
+  const regExp = /(v[0-9]+(?:\.[0-9]+(?:\.[0-9]+)?)?)(-rc)?\.min.js/;
+
+  const [, version = fallbackVersion, isRc = false] = scriptLink.match(regExp) || [];
+
+  return scriptLink.replace(regExp, `${version}${versionSuffix}${isRc ? '-rc' : ''}${scriptSuffix}.min.js`);
+}
+
 function init(config: PageSideConfig): Promise<GetIdWebSdkComponent> {
   const fallbackVersion = process.env.FALLBACK_SDK_VERSION || 'v6';
   const scriptSuffix = process.env.SCRIPT_NAME_SUFFIX || '';
-  const defaultLink = `https://cdn.getid.cloud/sdk/getid-web-sdk-${fallbackVersion}${scriptSuffix}.min.js`;
+  const versionSuffix = process.env.VERSION_SUFFIX || '';
+  const defaultLink = `https://cdn.getid.cloud/sdk/getid-web-sdk-${fallbackVersion}${versionSuffix}${scriptSuffix}.min.js`;
 
   return new Promise((res, rej) => {
-    getScriptLink(config.apiUrl, config.flowName, config.experimentalKey).then(({ scriptLink = defaultLink }) => {
-      scriptLink = scriptLink.indexOf(scriptSuffix) >= 0 ? scriptLink : scriptLink.replace('.min.js', `${scriptSuffix}.min.js`);
+    getScriptLink(config.apiUrl, config.flowName, config.experimentalKey).then(({ scriptLink = '' }) => {
+      scriptLink = prepareScriptLink(scriptLink, {
+        fallbackVersion,
+        scriptSuffix,
+        versionSuffix,
+        defaultLink,
+      });
 
       const script = document.createElement('script');
       script.setAttribute('async', '');
