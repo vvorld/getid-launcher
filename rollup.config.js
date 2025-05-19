@@ -20,7 +20,7 @@ const launchers = [
   {
     name: 'non-polyfills',
     env: {
-      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v6.13.1-rc'),
+      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v7.5.5'),
       'process.env.SCRIPT_NAME_SUFFIX': JSON.stringify('-non-polyfills'),
     },
   },
