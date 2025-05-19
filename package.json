@@ -43,7 +43,7 @@
     "rollup": "^2.78.1",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-terser": "^7.0.2",
-    "semver": "^7.3.5",
+    "semver": "^7.7.2",
     "ts-jest": "^29.1.1",
     "typescript": "^4.9.5"
   }
