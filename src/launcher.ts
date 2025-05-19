@@ -58,7 +58,7 @@ export function prepareScriptLink(scriptLink: string, { fallbackVersion, scriptS
 }
 
 function init(config: PageSideConfig): Promise<GetIdWebSdkComponent> {
-  const fallbackVersion = process.env.FALLBACK_SDK_VERSION || 'v6';
+  const fallbackVersion = process.env.FALLBACK_SDK_VERSION || 'v7';
   const scriptSuffix = process.env.SCRIPT_NAME_SUFFIX || '';
   const versionSuffix = process.env.VERSION_SUFFIX || '';
   const defaultLink = `https://cdn.getid.cloud/sdk/getid-web-sdk-${fallbackVersion}${versionSuffix}${scriptSuffix}.min.js`;
