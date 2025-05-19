@@ -24,7 +24,6 @@ jobs:
 
       - name: Prepare
         run: |
-          npm i -g npm@7
           npm ci
       - name: Test
         run: |
