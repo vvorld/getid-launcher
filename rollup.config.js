@@ -53,7 +53,9 @@ const config = [
     }],
     plugins: [
       typescript({ declaration: true }),
-      replace(defaultEnvVariables),
+      replace({ ...defaultEnvVariables,
+         preventAssignment: false
+        }),
       babel({
         babelHelpers: 'runtime',
         skipPreflightCheck: true,
@@ -74,7 +76,6 @@ const config = [
       typescript({ declaration: true }),
       dts()
     ],
-    sourcemap: false
   },
   ...launchers.map((launcher) => ({
     input: 'src/lib.ts',
@@ -91,7 +92,8 @@ const config = [
       typescript({ declaration: true }),
       replace({
         ...defaultEnvVariables,
-        ...(launcher.env || {})
+        ...(launcher.env || {}),
+        preventAssignment: false
       }),
       babel({
         babelHelpers: 'runtime',
