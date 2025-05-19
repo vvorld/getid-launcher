@@ -105,7 +105,9 @@ const config = [
         include: 'node_modules/**',
       }),
       json(),
-      terser(),
+      terser({
+        format: { comments: false }
+      }),
     ],
   })),
 ];
