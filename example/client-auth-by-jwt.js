@@ -20,7 +20,7 @@ const config = {
   ],
   containerId,
   flowName: 'YOUR_FLOW_NAME',
-  locale: 'ru',
+  locale: 'en',
   metadata: {
     externalId: 'qwerty',
     labels: {
