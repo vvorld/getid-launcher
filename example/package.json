@@ -11,13 +11,14 @@
     "build": "webpack"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "express-handlebars": "^5.2.0",
-    "handlebars": "^4.7.6",
-    "webpack": "^5.5.0"
+    "express": "^4.21.2",
+    "express-handlebars": "^5.3.5",
+    "getid-launcher": "^3",
+    "handlebars": "^4.7.8",
+    "webpack": "^5.99.8"
   },
   "devDependencies": {
-    "axios": "^0.21.1",
-    "webpack-cli": "^4.2.0"
+    "axios": "^1.9.0",
+    "webpack-cli": "^4.10.0"
   }
 }
