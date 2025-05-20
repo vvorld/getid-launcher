@@ -24,21 +24,6 @@ const launchers = [
       'process.env.SCRIPT_NAME_SUFFIX': JSON.stringify('-non-polyfills'),
     },
   },
-  {
-    name: 'kl',
-    env: {
-      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v7'),
-      'process.env.VERSION_SUFFIX': JSON.stringify('-kl'),
-    },
-  },
-  {
-    name: 'kl-non-polyfills',
-    env: {
-      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v7'),
-      'process.env.VERSION_SUFFIX': JSON.stringify('-kl'),
-      'process.env.SCRIPT_NAME_SUFFIX': JSON.stringify('-non-polyfills'),
-    },
-  },
 ];
 
 const config = [
