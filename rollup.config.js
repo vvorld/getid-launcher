@@ -18,6 +18,10 @@ const launchers = [
     env: {},
   },
   {
+    name: 'v6',
+    env: {},
+  },
+  {
     name: 'non-polyfills',
     env: {
       'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v7.5.5'),
