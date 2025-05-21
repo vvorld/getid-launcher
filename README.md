@@ -5,14 +5,14 @@ A light script that will initiate and launch the GetID WebSDK when triggered. Th
 ## Documentation
 This script start the GetId Web SDK on a web page. 
 The product documentation is moved from this repository and made available on:
-### [WebSDK - Getting Started](https://checkin.com/get_started/index.html)
+### [Developer Documentation](https://dev.checkin.com)
 
 
 ## Product information
 More product information is available on [Checkin.com](https://checkin.com) 
 
 ## Adding the launcher
-A simple way to use the launcher is by adding the online CDN-link as described in the [documentation](https://checkin.com/get_started/integration-examples.html#1-load-the-sdk).
+A simple way to use the launcher is by adding the online CDN-link as described in the [documentation](https://dev.checkin.com/docs/getid-direct-integration).
 
 ### Build into project
 It is also possible to embed this launcher by installing it to your projects directly. 
