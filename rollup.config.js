@@ -18,24 +18,13 @@ const launchers = [
     env: {},
   },
   {
+    name: 'v6',
+    env: {},
+  },
+  {
     name: 'non-polyfills',
     env: {
-      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v6.13.1-rc'),
-      'process.env.SCRIPT_NAME_SUFFIX': JSON.stringify('-non-polyfills'),
-    },
-  },
-  {
-    name: 'kl',
-    env: {
-      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v7'),
-      'process.env.VERSION_SUFFIX': JSON.stringify('-kl'),
-    },
-  },
-  {
-    name: 'kl-non-polyfills',
-    env: {
-      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v7'),
-      'process.env.VERSION_SUFFIX': JSON.stringify('-kl'),
+      'process.env.FALLBACK_SDK_VERSION': JSON.stringify('v7.5.5'),
       'process.env.SCRIPT_NAME_SUFFIX': JSON.stringify('-non-polyfills'),
     },
   },
@@ -53,7 +42,9 @@ const config = [
     }],
     plugins: [
       typescript({ declaration: true }),
-      replace(defaultEnvVariables),
+      replace({ ...defaultEnvVariables,
+         preventAssignment: false
+        }),
       babel({
         babelHelpers: 'runtime',
         skipPreflightCheck: true,
@@ -74,7 +65,6 @@ const config = [
       typescript({ declaration: true }),
       dts()
     ],
-    sourcemap: false
   },
   ...launchers.map((launcher) => ({
     input: 'src/lib.ts',
@@ -91,7 +81,8 @@ const config = [
       typescript({ declaration: true }),
       replace({
         ...defaultEnvVariables,
-        ...(launcher.env || {})
+        ...(launcher.env || {}),
+        preventAssignment: false
       }),
       babel({
         babelHelpers: 'runtime',
@@ -103,7 +94,9 @@ const config = [
         include: 'node_modules/**',
       }),
       json(),
-      terser(),
+      terser({
+        format: { comments: false }
+      }),
     ],
   })),
 ];

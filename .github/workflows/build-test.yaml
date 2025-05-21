@@ -1,0 +1,36 @@
+# name: Publish new version
+
+on:
+  pull_request:
+    branches: 
+    - main  
+  push:
+    branches: 
+    - main
+    - update/*
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: 24
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Prepare
+        run: |
+          npm ci
+      - name: Test
+        run: |
+          npm test
+          npm run lint
+      - name: Build
+        run: |
+          npm run build
+
+
